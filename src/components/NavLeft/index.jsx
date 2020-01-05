@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Menu, Icon } from "antd";
+import menuConfig from "@/config/menuConfig.js";
+
+const { SubMenu } = Menu;
 export default class NavLeft extends Component{
+    componentWillMount() {
+        const menuNodeTree = this.renderMenu(menuConfig);
+        this.setState({
+            menuNodeTree
+        });
+    }
+    renderMenu = (data) => {
+        return data.map((item) => {
+            if(item.children){
+                return (
+                    <SubMenu title={item.title} key={item.key}>
+                        { this.renderMenu(item.children) }
+                    </SubMenu>
+                );
+            }
+            return <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>;
+        });
+    }
     render() {
         return (
-            <nav>
-                <ul>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/admin/home">home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/admin/context">Context</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/admin/lazy">Lazy & Suspense</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/admin/refs">Refs</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/order/detail">detail</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="active-router" to="/login">logout</NavLink>
-                    </li>
-                </ul>
-            </nav>
-        )
+            <div>
+                <div className="logo">
+                    <img src="/assets/logo.svg" alt="logo"/>
+                    <h1>Admin</h1>
+                </div>
+                <nav>
+                    { this.state.menuNodeTree }
+                </nav>
+            </div>
+        );
     }
 }

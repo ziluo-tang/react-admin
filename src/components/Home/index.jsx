@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { sayHello } from '@/store/action';
+import './index.less';
 class Home extends Component{
     componentDidMount() {
         this.props.onTextInit();
@@ -9,6 +10,7 @@ class Home extends Component{
         return (
             <div className="home">
                 Welcome to React ！！！
+                <p className="less-test">less test</p>
             </div>
         );
     }

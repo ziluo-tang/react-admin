@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, Icon } from "antd";
+import { connect } from 'react-redux';
 import menuConfig from "@/config/menuConfig.js";
+import './index.less';
 
-const { SubMenu } = Menu;
-export default class NavLeft extends Component{
+const { SubMenu, Item } = Menu;
+class NavLeft extends Component{
     componentWillMount() {
         const menuNodeTree = this.renderMenu(menuConfig);
         this.setState({
@@ -20,20 +22,31 @@ export default class NavLeft extends Component{
                     </SubMenu>
                 );
             }
-            return <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>;
+            return (
+                <Item title={item.title} key={item.key}>
+                    <Icon type={item.icon} />
+                    {item.title}
+                </Item>
+            );
         });
     }
     render() {
         return (
-            <div>
+            <div className="nav-wrapper">
                 <div className="logo">
-                    <img src="/assets/logo.svg" alt="logo"/>
-                    <h1>Admin</h1>
+                    <img className={this.props.collapsed? "logo-small" : "logo-large"} src="/assets/logo.svg" alt="logo"/>
+                    <h1>{this.props.collapsed?'': 'Admin'}</h1>
                 </div>
-                <nav>
+                <Menu theme="dark" defaultSelectedKeys={['/admin/home']}>
                     { this.state.menuNodeTree }
-                </nav>
+                </Menu>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    collapsed: state.sliderToggle.collapsed
+});
+
+export default connect(mapStateToProps)(NavLeft)

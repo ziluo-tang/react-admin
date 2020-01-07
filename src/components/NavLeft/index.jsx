@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, Icon } from "antd";
-import menuConfig from "@/config/menuConfig.js";
+import menuConfig from "../../config/menuConfig.js";
 
 const { SubMenu } = Menu;
 export default class NavLeft extends Component{

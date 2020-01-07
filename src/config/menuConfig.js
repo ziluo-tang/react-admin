@@ -2,47 +2,60 @@ export default [
     {
         title: '首页',
         key: '/admin/home',
-        icon: 'home'
+        icon: 'home',
+        isLevel: true
     },
     {
         title: 'UI',
         key: '/admin/ui',
+        isLevel: false,
         children: [
             {
                 title: '表格',
-                key: '/admin/ui/table'
+                key: '/admin/ui/table',
+                isLevel: true
             },
             {
                 title: '弹框',
-                key: '/admin/ui/model'
+                key: '/admin/ui/model',
+                isLevel: true
             }
         ]
     },
     {
         title: '表单',
         key: '/admin/form',
-        icon: 'form'
+        icon: 'form',
+        isLevel: true
     },
     {
         title: '城市管理',
-        key: '/admin/city'
+        key: '/admin/city',
+        icon: 'area-chart',
+        isLevel: true
     },
     {
         title: '订单管理',
-        key: '/admin/order'
+        key: '/admin/order',
+        icon: 'file-text',
+        isLevel: true
     },
     {
         title: '员工管理',
         key: '/admin/user',
-        icon: 'user'
+        icon: 'user',
+        isLevel: true
     },
     {
         title: '车辆地图',
-        key: '/admin/map'
+        key: '/admin/map',
+        icon: 'alibaba',
+        isLevel: true
     },
     {
         title: '权限设置',
         key: '/admin/power',
-        icon: 'setting'
+        icon: 'setting',
+        isLevel: true
     }
 ]

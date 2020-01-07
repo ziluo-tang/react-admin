@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Menu, Icon } from "antd";
 import { connect } from 'react-redux';
 import menuConfig from "@/config/menuConfig.js";
@@ -10,7 +10,8 @@ class NavLeft extends Component{
     componentWillMount() {
         const menuNodeTree = this.renderMenu(menuConfig);
         this.setState({
-            menuNodeTree
+            menuNodeTree,
+            pathname: this.props.location.pathname
         });
     }
     renderMenu = (data) => {
@@ -25,7 +26,7 @@ class NavLeft extends Component{
             return (
                 <Item title={item.title} key={item.key}>
                     <Icon type={item.icon} />
-                    {item.title}
+                    <span>{item.title}</span>
                 </Item>
             );
         });
@@ -34,10 +35,10 @@ class NavLeft extends Component{
         return (
             <div className="nav-wrapper">
                 <div className="logo">
-                    <img className={this.props.collapsed? "logo-small" : "logo-large"} src="/assets/logo.svg" alt="logo"/>
-                    <h1>{this.props.collapsed?'': 'Admin'}</h1>
+                    <img src="/assets/logo.svg" alt="logo"/>
+                    {this.props.collapsed? '' : <h1>Admin</h1>}
                 </div>
-                <Menu theme="dark" defaultSelectedKeys={['/admin/home']}>
+                <Menu theme="dark" defaultSelectedKeys={[this.state.pathname]}>
                     { this.state.menuNodeTree }
                 </Menu>
             </div>
@@ -49,4 +50,4 @@ const mapStateToProps = state => ({
     collapsed: state.sliderToggle.collapsed
 });
 
-export default connect(mapStateToProps)(NavLeft)
+export default connect(mapStateToProps)(withRouter(NavLeft))

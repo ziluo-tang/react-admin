@@ -5,14 +5,10 @@ import { Layout } from 'antd';
 import { connect } from 'react-redux';
 import './index.less';
 
-
 const { Sider, Content, Footer } = Layout;
 
 class Admin extends Component{
     state = {}
-    componentDidMount() {
-        console.log(this.props);
-    }
     render() {
         return (
             <Layout className="admin-wrapper">

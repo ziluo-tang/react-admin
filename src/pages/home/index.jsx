@@ -9,8 +9,7 @@ class Home extends Component{
     render() {
         return (
             <div className="home">
-                Welcome to React ！！！
-                <p className="less-test">less test</p>
+                Welcome to react-admin
             </div>
         );
     }

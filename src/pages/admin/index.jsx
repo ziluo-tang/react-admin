@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import NavLeft from '@/components/NavLeft';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Layout } from 'antd';
+import { connect } from 'react-redux';
 import './index.less';
-export default class Admin extends Component{
+
+const { Sider, Content, Footer } = Layout;
+
+class Admin extends Component{
+    state = {}
     render() {
         return (
-            <div className="admin-wrapper">
-                <aside>
+            <Layout className="admin-wrapper">
+                <Sider className="nav" trigger={null} collapsible collapsed={this.props.collapsed}>
                     <NavLeft/>
-                </aside>
-                <article className="main-wrapper">
-                    <Header/>
-                    <div className="content">
-                        {this.props.children}
-                    </div>
-                    <Footer/>
-                </article>
-            </div>
+                </Sider>
+                <Layout className="main-wrapper">
+                    <Header></Header>
+                    <Content className="content">
+                        { this.props.children }
+                    </Content>
+                    <Footer className="footer">
+                        Copyright © 2019 JonTang. All Rights Reserved. JonTang 版权所有
+                    </Footer>
+                </Layout>
+            </Layout>
         );
     }
 }
+const mapStateToProps = state => ({
+    collapsed: state.sliderToggle.collapsed
+});
+
+export default connect(mapStateToProps)(Admin)

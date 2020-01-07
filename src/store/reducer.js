@@ -24,7 +24,20 @@ const todo = (state = {}, action) => {
         default: return state;
     }
 }
+
+const sliderToggle = (state = {}, action) => {
+    switch (action.type) {
+        case type.SLIDERTOGGLE:
+            return {
+                ...state,
+                collapsed: action.collapsed
+            };
+        default: return state;
+    }
+}
+
 export default combineReducers({
     sayHello,
-    todo
+    todo,
+    sliderToggle
 })

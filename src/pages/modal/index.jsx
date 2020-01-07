@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-export default class Footer extends Component{
+export default class CModal extends Component{
     render() {
         return (
-            <div>footer</div>
+            <div>this is modal</div>
         )
     }
 }

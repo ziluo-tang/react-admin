@@ -3,7 +3,8 @@
  */
 export const type = {
     SAYHELLO: 'SAYHELLO',
-    TODO: 'TODO'
+    TODO: 'TODO',
+    SLIDERTOGGLE: 'SLIDERTOGGLE'
 }
 
 /**
@@ -21,5 +22,12 @@ export function todo(doSomething) {
     return {
         type: type.TODO,
         doSomething
+    }
+}
+
+export function sliderToggle(collapsed) {
+    return {
+        type: type.SLIDERTOGGLE,
+        collapsed
     }
 }

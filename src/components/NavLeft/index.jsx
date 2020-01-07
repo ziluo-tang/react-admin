@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Menu, Icon } from "antd";
-import menuConfig from "../../config/menuConfig.js";
+import menuConfig from "@/config/menuConfig.js";
+import './index.less';
 
-const { SubMenu } = Menu;
-export default class NavLeft extends Component{
+const { SubMenu, Item } = Menu;
+class NavLeft extends Component{
     componentWillMount() {
         const menuNodeTree = this.renderMenu(menuConfig);
         this.setState({
-            menuNodeTree
+            menuNodeTree,
+            pathname: this.props.location.pathname
         });
     }
     renderMenu = (data) => {
@@ -20,20 +23,31 @@ export default class NavLeft extends Component{
                     </SubMenu>
                 );
             }
-            return <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>;
+            return (
+                <Item title={item.title} key={item.key}>
+                    <Icon type={item.icon} />
+                    <span>{item.title}</span>
+                </Item>
+            );
         });
     }
     render() {
         return (
-            <div>
+            <div className="nav-wrapper">
                 <div className="logo">
                     <img src="/assets/logo.svg" alt="logo"/>
-                    <h1>Admin</h1>
+                    {this.props.collapsed? '' : <h1>Admin</h1>}
                 </div>
-                <nav>
+                <Menu theme="dark" defaultSelectedKeys={[this.state.pathname]}>
                     { this.state.menuNodeTree }
-                </nav>
+                </Menu>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    collapsed: state.sliderToggle.collapsed
+});
+
+export default connect(mapStateToProps)(withRouter(NavLeft))

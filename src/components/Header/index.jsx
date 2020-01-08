@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Layout, Icon } from 'antd';
+import { Layout, Icon, Avatar, Popover, Menu, Modal } from 'antd';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sliderToggle } from '@/store/action';
 import './index.less';
 
 const { Header } = Layout;
+const { Item, Divider } = Menu;
 class CHeader extends Component{
     state = {}
     componentDidMount() {
@@ -19,13 +21,40 @@ class CHeader extends Component{
         });
         
     }
+    menuClick = ({key}) => {
+        if(key==2){
+            Modal.confirm({
+                title: '是否退出?',
+                centered: true,
+                onOk: this.logout
+            });
+        }
+    }
+    logout = () => {
+        this.props.history.push('/login');
+    }
     render() {
         return (
             <Header className="header">
                  <Icon className="trigger" type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.toggle}/>
+                 <Popover content={
+                        <Menu selectable={false} onClick={this.menuClick}>
+                            <Item key="0">个人信息</Item>
+                            <Divider></Divider>
+                            <Item key="1">系统设置</Item>
+                            <Divider></Divider>
+                            <Item key="2">退出登录</Item>
+                        </Menu>
+                    } 
+                    placement="bottom" 
+                    trigger="hover"
+                >
+                    <span className="user">hi，JonTang</span>
+                     <Avatar src="/assets/user.png"></Avatar>
+                </Popover>
             </Header>
         )
     }
 }
 
-export default connect()(CHeader)
+export default connect()(withRouter(CHeader))

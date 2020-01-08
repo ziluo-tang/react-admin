@@ -23,7 +23,7 @@ export default [
             },
             {
                 title: '弹框',
-                key: '/admin/ui/model',
+                key: '/admin/ui/modal',
                 isLevel: true
             }
         ]

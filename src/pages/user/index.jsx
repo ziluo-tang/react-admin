@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 export default class User extends Component{
     render() {
         return (
-            <div>this is user</div>
+            <div>user page.</div>
         )
     }
 }

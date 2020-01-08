@@ -54,7 +54,7 @@ export default [
     },
     {
         title: '权限设置',
-        key: '/admin/power',
+        key: '/admin/config',
         icon: 'setting',
         isLevel: true
     }

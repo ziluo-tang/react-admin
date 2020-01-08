@@ -18,15 +18,30 @@ class NavLeft extends Component{
         return data.map((item) => {
             if(item.children){
                 return (
-                    <SubMenu title={item.title} key={item.key}>
+                    <SubMenu title={
+                                <span>
+                                    { item.icon && <Icon type={ item.icon } /> }
+                                    <span>{ item.title }</span>
+                                </span>
+                            } 
+                            key={item.key}>
                         { this.renderMenu(item.children) }
                     </SubMenu>
                 );
             }
             return (
                 <Item title={item.title} key={item.key}>
-                    <Icon type={item.icon} />
-                    <span>{item.title}</span>
+                    { item.isLevel ? 
+                        <NavLink to={item.key}>
+                            { item.icon && <Icon type={item.icon}/> }
+                            <span>{item.title}</span>
+                        </NavLink> 
+                        : 
+                        <span>
+                            { item.icon && <Icon type={item.icon}/> }
+                            <span>{item.title}</span>
+                        </span> 
+                    }
                 </Item>
             );
         });

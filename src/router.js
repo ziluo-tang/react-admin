@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import AuthRoute from '@/components/AuthRouter';
 import App from '@/App';
 import Admin from '@/pages/admin';
 import Login from '@/pages/login';
@@ -26,16 +27,16 @@ export default class IRouter extends Component{
                         <Route path="/admin" render={() =>
                             <Admin>
                                 <Switch>
-                                    <Route path="/admin/home" component={Home}></Route>
-                                    <Route path="/admin/ui/table" component={CTable}></Route>
-                                    <Route path="/admin/ui/modal" component={CModal}></Route>
-                                    <Route path="/admin/ui/form" component={CForm}></Route>
-                                    <Route path="/admin/city" component={City}></Route>
-                                    <Route path="/admin/order" component={Order}></Route>
-                                    <Route path="/admin/map" component={CMap}></Route>
-                                    <Route path="/admin/user" component={User}></Route>
-                                    <Route path="/admin/config" component={Config}></Route>
-                                    <Route component={NoMatch}></Route>
+                                    <AuthRoute path="/admin/home" component={Home}></AuthRoute>
+                                    <AuthRoute path="/admin/ui/table" component={CTable}></AuthRoute>
+                                    <AuthRoute path="/admin/ui/modal" component={CModal}></AuthRoute>
+                                    <AuthRoute path="/admin/ui/form" component={CForm}></AuthRoute>
+                                    <AuthRoute path="/admin/city" component={City}></AuthRoute>
+                                    <AuthRoute path="/admin/order" component={Order}></AuthRoute>
+                                    <AuthRoute path="/admin/map" component={CMap}></AuthRoute>
+                                    <AuthRoute path="/admin/user" component={User}></AuthRoute>
+                                    <AuthRoute path="/admin/config" component={Config}></AuthRoute>
+                                    <AuthRoute component={NoMatch}></AuthRoute>
                                 </Switch>
                             </Admin>}>
                         </Route>

@@ -31,6 +31,7 @@ class CHeader extends Component{
         }
     }
     logout = () => {
+        localStorage.removeItem('user');
         this.props.history.push('/login');
     }
     render() {

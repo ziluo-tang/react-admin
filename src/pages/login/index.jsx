@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
+import Utils from '@/utils';
 import './index.less';
 
 const { Item } = Form;
+const { handleLocalStorage } = Utils;
 class Login extends Component{
     handleSubmit= e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                localStorage.setItem('user', JSON.stringify({
+                handleLocalStorage.set('user', {
                     name: values.username,
                     password: values.password
-                }));
+                }, 4*60*60*1000);
                 this.props.history.push('/admin/home');
             }
         });

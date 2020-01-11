@@ -1,5 +1,6 @@
 import JSONP from 'jsonp';
-
+import axios from 'axios';
+export const login = (param) => axios.post('/api/login', param)
 export default class Axios{
     static jsonp(options) {
         return new Promise((resolve, reject) => {

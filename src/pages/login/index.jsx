@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 import Utils from '@/utils';
+import { login } from '@/api';
 import './index.less';
 
 const { Item } = Form;
@@ -11,11 +12,19 @@ class Login extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                handleLocalStorage.set('user', {
+                login({
                     name: values.username,
                     password: values.password
-                }, 4*60*60*1000);
-                this.props.history.push('/admin/home');
+                }).then((res) => {
+                    console.log(res);
+                    handleLocalStorage.set('user', {
+                        name: values.username,
+                        password: values.password
+                    }, 4*60*60*1000);
+                    this.props.history.push('/admin/home');
+                }).catch((err) => {
+                    throw new Error(err);
+                });
             }
         });
     }

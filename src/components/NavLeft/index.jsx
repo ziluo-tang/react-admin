@@ -9,6 +9,7 @@ const { SubMenu, Item } = Menu;
 class NavLeft extends Component{
     state = {}
     componentWillMount() {
+        console.log(this.props);
         const menuNodeTree = this.renderMenu(menuConfig);
         this.setState({
             menuNodeTree,

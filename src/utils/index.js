@@ -9,7 +9,7 @@ export default {
         },
         get(key) {
             let value = JSON.parse(localStorage.getItem(key));
-            if(value.expirse>=Date.now()){
+            if(value && value.expirse>=Date.now()){
                 const { expirse, ...data } = value;
                 return data;
             }else{

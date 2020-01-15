@@ -25,6 +25,8 @@ class CHeader extends Component{
         if(key==2){
             Modal.confirm({
                 title: '是否退出?',
+                okText: '确定',
+                cancelText: '取消',
                 centered: true,
                 onOk: this.logout
             });

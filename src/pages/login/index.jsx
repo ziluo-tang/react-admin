@@ -8,6 +8,9 @@ import './index.less';
 const { Item } = Form;
 const { handleLocalStorage } = Utils;
 class Login extends Component{
+    componentDidMount() {
+        handleLocalStorage.removeItem('user');
+    }
     handleSubmit= e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -16,12 +19,17 @@ class Login extends Component{
                     name: values.username,
                     password: values.password
                 }).then((res) => {
-                    console.log(res);
                     handleLocalStorage.set('user', {
                         name: values.username,
                         password: values.password
-                    }, 4*60*60*1000);
-                    this.props.history.push('/admin/home');
+                    }, 4*3600*1000);
+                    
+                    this.props.history.push({
+                        pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
+                        search: 'a=111',
+                        query: {name: values.username},
+                        state: {text: 'hello home'},
+                    });
                 }).catch((err) => {
                     throw new Error(err);
                 });

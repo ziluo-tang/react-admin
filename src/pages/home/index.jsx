@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { sayHello } from '@/store/action';
 import './index.less';
 class Home extends Component{
@@ -30,4 +31,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(sayHello('Store state changed'))
     }
 })
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

@@ -26,9 +26,8 @@ class Login extends Component{
                     
                     this.props.history.push({
                         pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
-                        search: 'a=111',
                         query: {name: values.username},
-                        state: {text: 'hello home'},
+                        state: {user: values.username},
                     });
                 }).catch((err) => {
                     throw new Error(err);

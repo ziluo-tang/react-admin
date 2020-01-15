@@ -52,8 +52,8 @@ class CHeader extends Component{
                     placement="bottom" 
                     trigger="hover"
                 >
-                    <span className="user">hi，JonTang</span>
-                     <Avatar src="/assets/user.png"></Avatar>
+                    <span className="user">hi，JsnTang</span>
+                    <Avatar src="/assets/user.png"></Avatar>
                 </Popover>
             </Header>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import AuthRoute from '@/components/AuthRouter';
 import App from '@/App';
 import Admin from '@/pages/admin';

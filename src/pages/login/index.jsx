@@ -15,10 +15,25 @@ class Login extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                login({
-                    name: values.username,
-                    password: values.password
-                }).then((res) => {
+                if(process.env.NODE_ENV==="development") {
+                    login({
+                        name: values.username,
+                        password: values.password
+                    }).then((res) => {
+                        handleLocalStorage.set('user', {
+                            name: values.username,
+                            password: values.password
+                        }, 4*3600*1000);
+                        
+                        this.props.history.push({
+                            pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
+                            query: {name: values.username},
+                            state: {user: values.username},
+                        });
+                    }).catch((err) => {
+                        throw new Error(err);
+                    });
+                }else{
                     handleLocalStorage.set('user', {
                         name: values.username,
                         password: values.password
@@ -29,9 +44,7 @@ class Login extends Component{
                         query: {name: values.username},
                         state: {user: values.username},
                     });
-                }).catch((err) => {
-                    throw new Error(err);
-                });
+                }
             }
         });
     }
@@ -40,7 +53,7 @@ class Login extends Component{
         return (
             <div className="login">
                 <div className="login-logo">
-                    <img src="/assets/logo.svg" alt="logo"/>
+                    <img src={require('./../../assets/logo.svg')} alt="logo"/>
                     <span>REACT ADMIN</span>
                 </div>
                 <Form onSubmit={this.handleSubmit}>

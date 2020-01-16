@@ -51,7 +51,7 @@ class NavLeft extends Component{
         return (
             <div className="nav-wrapper">
                 <div className="logo">
-                    <img src="/assets/logo.svg" alt="logo"/>
+                    <img src={require('./../../assets/logo.svg')} alt="logo"/>
                     {this.props.collapsed? '' : <h1>Admin</h1>}
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={[this.state.pathname]}>

@@ -6,16 +6,18 @@ import Utils from '@/utils';
 const { handleLocalStorage } = Utils;
 
 export default class AuthRouter extends PureComponent{
-    render() {
-        const { component: Component, ...rest } = this.props;
-        const isLogin = handleLocalStorage.get('user');
-        if(!isLogin && this.props.path!='/login'){
+    componentWillMount() {
+        this.isLogin = handleLocalStorage.get('user');
+        if(!this.isLogin && this.props.path!='/login'){
             message.warning("登录信息过期，请重新登录！");
             handleLocalStorage.set('historyPath', this.props.path);
         }
+    }
+    render() {
+        const { component: Component, ...rest } = this.props;
         return (
             <Route {...rest} render={ props => {
-                    return isLogin? <Component {...props}/> : <Redirect to="/login"/>
+                    return this.isLogin? <Component {...props}/> : <Redirect to="/login"/>
                 }
             }/>
         );

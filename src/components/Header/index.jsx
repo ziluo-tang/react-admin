@@ -3,15 +3,18 @@ import { Layout, Icon, Avatar, Popover, Menu, Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sliderToggle } from '@/store/action';
+import Utils from '@/utils';
 import './index.less';
 
 const { Header } = Layout;
 const { Item, Divider } = Menu;
+const { handleLocalStorage } = Utils;
 class CHeader extends Component{
     state = {}
-    componentDidMount() {
+    componentWillMount() {
+        const userInfo = handleLocalStorage.get('user');
         this.setState({
-            userName: 'JonTang'
+            userName: userInfo.name
         });
     }
     toggle = () => {
@@ -33,7 +36,7 @@ class CHeader extends Component{
         }
     }
     logout = () => {
-        localStorage.removeItem('user');
+        handleLocalStorage.removeItem('user');
         this.props.history.push('/login');
     }
     render() {
@@ -52,8 +55,8 @@ class CHeader extends Component{
                     placement="bottom" 
                     trigger="hover"
                 >
-                    <span className="user">hi，JsnTang</span>
-                    <Avatar src="/assets/user.png"></Avatar>
+                    <span className="user">hi，{this.state.userName}</span>
+                    <Avatar src={require('./../../assets/user.png')}></Avatar>
                 </Popover>
             </Header>
         )

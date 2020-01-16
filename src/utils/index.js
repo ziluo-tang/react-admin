@@ -8,10 +8,10 @@ export default {
             localStorage.setItem(key, JSON.stringify(data));
         },
         get(key) {
-            let value = JSON.parse(localStorage.getItem(key));
-            if(value && value.expirse>=Date.now()){
-                const { expirse, ...data } = value;
-                return data;
+            let data = JSON.parse(localStorage.getItem(key));
+            if(data && data.expirse>=Date.now()){
+                const { expirse, value } = data;
+                return value;
             }else{
                 localStorage.removeItem(key);
                 return;

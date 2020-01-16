@@ -8,7 +8,7 @@ export default class User extends Component{
                 key: '1',
                 name: '胡彦斌',
                 sexy: '男', 
-                avatar: '/assets/user.png',
+                avatar: require('./../../assets/user.png'),
                 age: 32,
                 address: '西湖区湖底公园1号',
             },
@@ -16,7 +16,7 @@ export default class User extends Component{
                 key: '2',
                 name: '胡歌',
                 sexy: '男',
-                avatar: '/assets/user.png',
+                avatar: require('./../../assets/user.png'),
                 age: 42,
                 address: '西湖区湖底公园1号',
             }

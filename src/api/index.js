@@ -1,7 +1,7 @@
 import JSONP from 'jsonp';
 import axios from 'axios';
 
-export const login = (param) => axios.get('/users', param);
+export const login = (param) => axios.post('/login', param);
 
 export default class Axios{
     static jsonp(options) {

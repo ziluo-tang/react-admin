@@ -13,9 +13,11 @@ class CHeader extends Component{
     state = {}
     componentWillMount() {
         const userInfo = handleLocalStorage.get('user');
-        this.setState({
-            userName: userInfo.name
-        });
+        if(userInfo){
+            this.setState({
+                userName: userInfo.name
+            });
+        }
     }
     toggle = () => {
         this.props.dispatch(sliderToggle(!this.state.collapsed));

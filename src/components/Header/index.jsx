@@ -13,9 +13,11 @@ class CHeader extends Component{
     state = {}
     componentWillMount() {
         const userInfo = handleLocalStorage.get('user');
-        this.setState({
-            userName: userInfo.name
-        });
+        if(userInfo) {
+            this.setState({
+                userName: userInfo.name
+            });
+        }
     }
     toggle = () => {
         this.props.dispatch(sliderToggle(!this.state.collapsed));
@@ -56,7 +58,7 @@ class CHeader extends Component{
                     trigger="hover"
                 >
                     <span className="user">hi，{this.state.userName}</span>
-                    <Avatar src={require('./../../assets/user.png')}></Avatar>
+                    <Avatar src={require('./../../assets/author.jpg')}></Avatar>
                 </Popover>
             </Header>
         )

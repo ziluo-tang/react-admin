@@ -15,36 +15,34 @@ class Login extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                if(process.env.NODE_ENV==="development") {
-                    login({
-                        name: values.username,
-                        password: values.password
-                    }).then((res) => {
-                        handleLocalStorage.set('user', {
-                            name: values.username,
-                            password: values.password
-                        }, 4*3600*1000);
-                        
-                        this.props.history.push({
-                            pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
-                            query: {name: values.username},
-                            state: {user: values.username},
-                        });
-                    }).catch((err) => {
-                        throw new Error(err);
-                    });
-                }else{
-                    handleLocalStorage.set('user', {
-                        name: values.username,
-                        password: values.password
-                    }, 4*3600*1000);
+                //process.env.NODE_ENV==="development"
+                handleLocalStorage.set('user', {
+                    name: values.username,
+                    password: values.password
+                }, 4*3600*1000);
+                
+                this.props.history.push({
+                    pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
+                    query: {name: values.username},
+                    state: {user: values.username},
+                });
+                // login({
+                //     name: values.username,
+                //     password: values.password
+                // }).then((res) => {
+                //     handleLocalStorage.set('user', {
+                //         name: values.username,
+                //         password: values.password
+                //     }, 4*3600*1000);
                     
-                    this.props.history.push({
-                        pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
-                        query: {name: values.username},
-                        state: {user: values.username},
-                    });
-                }
+                //     this.props.history.push({
+                //         pathname: handleLocalStorage.get('historyPath').value || '/admin/home',
+                //         query: {name: values.username},
+                //         state: {user: values.username},
+                //     });
+                // }).catch((err) => {
+                //     throw new Error(err);
+                // });
             }
         });
     }

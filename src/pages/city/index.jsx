@@ -1,2 +1,10 @@
-import React from 'react';
-export default () => (<div>city page.</div>)
+import React, { useRef ,useEffect } from 'react';
+export default () => {
+    const dom = useRef(Date.now());
+    useEffect(() => {
+        console.log(dom.current);
+    }, []);
+    return (
+        <div ref={dom}>city page.</div>
+    )
+}

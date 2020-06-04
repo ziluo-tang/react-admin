@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import Video from '@/components/Video';
 export default class CModal extends Component{
     render() {
         return (
-            <div>modal page.</div>
+            <div>
+                <p>modal page.</p>
+                <Video></Video>
+            </div>
         )
     }
 }

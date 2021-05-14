@@ -1,33 +1,18 @@
 /**
  * action 类型
  */
-export const type = {
-    SAYHELLO: 'SAYHELLO',
-    TODO: 'TODO',
-    SLIDERTOGGLE: 'SLIDERTOGGLE'
+const ActionType = {
+  TODO: Symbol.for('TODO'),
+  SLIDERTOGGLE: Symbol.for('SLIDERTOGGLE'),
+  LOGIN: Symbol.for('LOGIN'),
 }
+export default ActionType
 
-/**
- * action
- * @param {*} text 
- */
-export function sayHello(text) {
-    return {
-        type: type.SAYHELLO,
-        text
-    }
-}
-
-export function todo(doSomething) {
-    return {
-        type: type.TODO,
-        doSomething
-    }
-}
-
-export function sliderToggle(collapsed) {
-    return {
-        type: type.SLIDERTOGGLE,
-        collapsed
-    }
+export const Actions = {
+  todo: (todo) => ({ type: ActionType.TODO, todo }),
+  collapsedToggle: (collapsed) => ({
+    type: ActionType.SLIDERTOGGLE,
+    collapsed,
+  }),
+  login: (user) => ({ type: ActionType.LOGIN, user }),
 }

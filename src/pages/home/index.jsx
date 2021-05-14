@@ -1,34 +1,38 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { sayHello } from '@/store/action';
-import './index.less';
-class Home extends Component{
-    componentDidMount() {
-        this.props.onTextInit();
-    }
-    render() {
-        return (
-            <div className="home">
-                Welcome to react-admin
-            </div>
-        );
-    }
+import React, { Component } from 'react'
+import { Button } from 'antd'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { Actions } from '@/store/action'
+import './index.less'
+class Home extends Component {
+  componentDidMount() {
+    console.log(this.props)
+  }
+  render() {
+    return (
+      <div className="home">
+        <div>Welcome to react-admin</div>
+        <Button
+          type="primary"
+          onClick={() => this.props.collapsedToggle(!this.props.collapsed)}
+        >
+          toggle collapsed
+        </Button>
+        <Button
+          type="dashed"
+          onClick={() =>
+            this.props.login({ username: 'tangxiaoxin', password: 'sfjbskf' })
+          }
+        >
+          login
+        </Button>
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = state => ({
-    text: state.text
-});
-
-const mapDispatchToProps = dispatch => ({
-    onTextInit: () => {
-        dispatch(sayHello('hello, welcome to redux'))
-    },
-    onTextClick: () => {
-        dispatch(sayHello('Store state clicked'))
-    },
-    onTextChange: () => {
-        dispatch(sayHello('Store state changed'))
-    }
-})
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
+export default connect(
+  (state) => ({ collapsed: state.sliderToggle.collapsed }),
+  (dispatch) => bindActionCreators(Actions, dispatch)
+)(withRouter(Home))

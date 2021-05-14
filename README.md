@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 #### Description
 管理平台项目模板
 
-demo：https://jontang-web.github.io/react-admin/
+demo：https://tang-toledo.github.io/react-admin/
 
 ## Available Scripts
 

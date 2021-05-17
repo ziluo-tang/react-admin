@@ -1,10 +1,11 @@
-import { all, put, takeLatest } from 'redux-saga/effects'
+import { all, put, takeLatest, select, call } from 'redux-saga/effects'
 import ActionType, { Actions } from './action'
+import * as API from '@/api'
 
-function* login(params) {
-  console.log(params)
+function* login() {
+  const user = yield select((state) => state.login.user)
   try {
-    const res = yield fetch('')
+    const res = yield call(API.login, user)
     const data = yield res.json()
     //执行完异步网络请求，派发action
     yield put(Actions.login(data))

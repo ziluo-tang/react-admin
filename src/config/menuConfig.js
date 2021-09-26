@@ -58,4 +58,10 @@ export default [
     icon: 'setting',
     isLevel: true,
   },
+  {
+    title: '实时视频',
+    key: '/admin/rtc',
+    icon: 'video-camera',
+    isLevel: true,
+  },
 ]

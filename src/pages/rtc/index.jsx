@@ -1,94 +1,95 @@
-import React, { useRef, useState } from 'react'
-import { Button } from 'antd'
+import React, { useRef, useState } from 'react';
+import { Button } from 'antd';
+import './index.less';
 export default () => {
-  const videoRef = useRef(null)
-  const remoteVideoRef = useRef(null)
-  const iceConfig = useRef({})
-  const localPeerConnection = useRef()
-  const remotePeerConnection = useRef()
-  const [isOpen, setOpen] = useState(false)
-  const [isCalling, setCalling] = useState(false)
+  const videoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
+  const iceConfig = useRef({});
+  const localPeerConnection = useRef();
+  const remotePeerConnection = useRef();
+  const [isOpen, setOpen] = useState(false);
+  const [isCalling, setCalling] = useState(false);
 
   const createConnection = async () => {
-    localPeerConnection.current = new RTCPeerConnection(iceConfig.current)
-    remotePeerConnection.current = new RTCPeerConnection(iceConfig.current)
+    localPeerConnection.current = new RTCPeerConnection(iceConfig.current);
+    remotePeerConnection.current = new RTCPeerConnection(iceConfig.current);
 
     localPeerConnection.current.addEventListener(
       'icecandidate',
       async (event) => {
         try {
-          await remotePeerConnection.current.addIceCandidate(event.candidate)
+          await remotePeerConnection.current.addIceCandidate(event.candidate);
         } catch (error) {
-          console.log('local addIceCandidate error ')
+          console.log('local addIceCandidate error ');
         }
-      }
-    )
+      },
+    );
     remotePeerConnection.current.addEventListener(
       'icecandidate',
       async (event) => {
         try {
-          await localPeerConnection.current.addIceCandidate(event.candidate)
+          await localPeerConnection.current.addIceCandidate(event.candidate);
         } catch (error) {
-          console.log('remote addIceCandidate error')
+          console.log('remote addIceCandidate error');
         }
-      }
-    )
+      },
+    );
     localPeerConnection.current.addEventListener(
       'iceconnectionstatechange',
       (e) => {
-        console.log(localPeerConnection.current.iceConnectionState)
-      }
-    )
+        console.log(localPeerConnection.current.iceConnectionState);
+      },
+    );
     remotePeerConnection.current.addEventListener(
       'iceconnectionstatechange',
       (e) => {
-        console.log(remotePeerConnection.current.iceConnectionState)
-      }
-    )
-    addRemoteStream()
+        console.log(remotePeerConnection.current.iceConnectionState);
+      },
+    );
+    addRemoteStream();
     videoRef.current.srcObject.getTracks().forEach((track) => {
-      localPeerConnection.current.addTrack(track, videoRef.current.srcObject)
-    })
+      localPeerConnection.current.addTrack(track, videoRef.current.srcObject);
+    });
     try {
-      const offer = await localPeerConnection.current.createOffer()
-      await transformOffer(offer)
+      const offer = await localPeerConnection.current.createOffer();
+      await transformOffer(offer);
     } catch (error) {
-      console.log('local create offer error')
+      console.log('local create offer error');
     }
-  }
+  };
 
   const transformOffer = async (offer) => {
     try {
-      await localPeerConnection.current.setLocalDescription(offer)
+      await localPeerConnection.current.setLocalDescription(offer);
     } catch (error) {
-      console.log('local setLocalDescription error')
+      console.log('local setLocalDescription error');
     }
     try {
       remotePeerConnection.current.setRemoteDescription(
-        new RTCSessionDescription(offer)
-      )
-      const answer = await remotePeerConnection.current.createAnswer()
-      await transformAnswer(answer)
+        new RTCSessionDescription(offer),
+      );
+      const answer = await remotePeerConnection.current.createAnswer();
+      await transformAnswer(answer);
     } catch (error) {
-      console.log('remote create answer error')
+      console.log('remote create answer error');
     }
-  }
+  };
 
   const transformAnswer = async (answer) => {
     try {
-      await remotePeerConnection.current.setLocalDescription(answer)
+      await remotePeerConnection.current.setLocalDescription(answer);
     } catch (error) {
-      console.log('remote setLocalDescription error')
+      console.log('remote setLocalDescription error');
     }
 
     try {
       localPeerConnection.current.setRemoteDescription(
-        new RTCSessionDescription(answer)
-      )
+        new RTCSessionDescription(answer),
+      );
     } catch (error) {
-      console.log('local receive answer error')
+      console.log('local receive answer error');
     }
-  }
+  };
 
   const onOpen = () => {
     navigator.mediaDevices
@@ -102,71 +103,59 @@ export default () => {
         audio: true,
       })
       .then(async (stream) => {
-        videoRef.current.srcObject = stream
-        setOpen(true)
+        videoRef.current.srcObject = stream;
+        setOpen(true);
       })
       .catch((err) => {
-        console.error('Error accessing media devices.', err)
-      })
-  }
+        console.error('Error accessing media devices.', err);
+      });
+  };
 
   const addRemoteStream = () => {
-    const remoteStream = new MediaStream()
-    remoteVideoRef.current.srcObject = remoteStream
+    const remoteStream = new MediaStream();
+    remoteVideoRef.current.srcObject = remoteStream;
     remotePeerConnection.current.addEventListener('track', async (event) => {
-      remoteStream.addTrack(event.track, remoteStream)
+      remoteStream.addTrack(event.track, remoteStream);
       if (!isCalling) {
-        setCalling(true)
+        setCalling(true);
       }
-    })
-  }
+    });
+  };
 
   const onCall = async () => {
-    await createConnection()
-  }
+    await createConnection();
+  };
 
   const onClose = () => {
     // eslint-disable-next-line no-unused-expressions
-    localPeerConnection.current?.close()
+    localPeerConnection.current?.close();
     // eslint-disable-next-line no-unused-expressions
-    remotePeerConnection.current?.close()
-    const tracks = videoRef.current.srcObject.getTracks()
+    remotePeerConnection.current?.close();
+    const tracks = videoRef.current.srcObject.getTracks();
     tracks.forEach((element) => {
-      element.stop()
-    })
-    setOpen(false)
-    setCalling(false)
-  }
+      element.stop();
+    });
+    setOpen(false);
+    setCalling(false);
+  };
 
   return (
     <>
-      <video
-        width={500}
-        height={300}
-        style={{ background: '#000', marginRight: 50 }}
-        ref={videoRef}
-        autoPlay
-        playsInline
-      />
-      <video
-        width={500}
-        height={300}
-        ref={remoteVideoRef}
-        style={{ background: '#000' }}
-        autoPlay
-        playsInline
-      ></video>
-      <div>
-        <Button onClick={onOpen} disabled={isOpen}>
-          打开视频
+      <div className={'video-wrap'}>
+        <video className={'video'} ref={videoRef} autoPlay playsInline />
+        <video ref={remoteVideoRef} className={'video'} autoPlay playsInline />
+      </div>
+      <div className={'toolbar'}>
+        <Button type="primary" onClick={onOpen} disabled={isOpen}>
+          开播
         </Button>
-        <Button onClick={onCall} disabled={isCalling || !isOpen}>
-          呼叫远程
+        <Button type="dashed" onClick={onCall} disabled={isCalling || !isOpen}>
+          连线
         </Button>
-        <Button onClick={onClose} disabled={!isOpen}>
-          关闭视频
+        <Button type="danger" onClick={onClose} disabled={!isOpen}>
+          下播
         </Button>
       </div>
     </>
-  )
-}
+  );
+};

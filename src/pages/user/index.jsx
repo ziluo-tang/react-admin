@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Table, Avatar } from 'antd';
+import avatar from '@/assets/user.png'
 import './index.less';
 export default class User extends Component{
     state = {
@@ -8,7 +9,7 @@ export default class User extends Component{
                 key: '1',
                 name: '胡彦斌',
                 sexy: '男', 
-                avatar: require('./../../assets/user.png'),
+                avatar: avatar,
                 age: 32,
                 address: '西湖区湖底公园1号',
             },
@@ -16,7 +17,7 @@ export default class User extends Component{
                 key: '2',
                 name: '胡歌',
                 sexy: '男',
-                avatar: require('./../../assets/user.png'),
+                avatar: avatar,
                 age: 42,
                 address: '西湖区湖底公园1号',
             }

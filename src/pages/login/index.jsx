@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 import Utils from '@/utils';
 import { login } from '@/api';
+import logo from '@/assets/logo.svg'
 import './index.less';
 
 const { Item } = Form;
@@ -51,7 +52,7 @@ class Login extends Component{
         return (
             <div className="login">
                 <div className="login-logo">
-                    <img src={require('./../../assets/logo.svg')} alt="logo"/>
+                    <img src={logo} alt="logo"/>
                     <span>REACT ADMIN</span>
                 </div>
                 <Form onSubmit={this.handleSubmit}>

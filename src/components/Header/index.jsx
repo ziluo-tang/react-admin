@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Actions } from '@/store/action'
 import Utils from '@/utils'
+import avatar from '@/assets/author.jpg'
 import './index.less'
 
 const { Header } = Layout
@@ -66,7 +67,7 @@ class extends Component {
           trigger="hover"
         >
           <span className="user">hi，{this.state.userName}</span>
-          <Avatar src={require('./../../assets/author.jpg')}></Avatar>
+          <Avatar src={avatar}></Avatar>
         </Popover>
       </Header>
     )

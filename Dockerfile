@@ -14,12 +14,14 @@ RUN git clone https://github.com/ziluo-tang/react-admin.git /react-admin
 
 WORKDIR /react-admin
 
-RUN npm install
+RUN yarn
 
-RUN npm run build
+RUN yarn build
 
 FROM nginx:latest
 
-COPY --from=builder /app/react-admin/build /usr/share/nginx/html
+WORKDIR /app/react-admin
+
+COPY build /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]

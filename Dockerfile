@@ -8,11 +8,9 @@ RUN apt-get update
 
 RUN apt-get install git -y
 
-WORKDIR /app
+RUN git clone https://github.com/ziluo-tang/react-admin.git /app/react-admin
 
-RUN git clone https://github.com/ziluo-tang/react-admin.git /react-admin
-
-WORKDIR /react-admin
+WORKDIR /app/react-admin
 
 RUN yarn
 
@@ -20,8 +18,6 @@ RUN yarn build
 
 FROM nginx:latest
 
-WORKDIR /app/react-admin
-
-COPY build /usr/share/nginx/html
+COPY --from=builder /app/react-admin/build /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
